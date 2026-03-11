@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "../lib/supabase";
+import { supabase, supabaseConfigError } from "../lib/supabase";
 
 const DEFAULTS = {
   searchTerm: "",
@@ -59,6 +59,13 @@ export function useProperties(params = {}) {
     async function loadProperties() {
       setLoading(true);
       setError(null);
+      if (!supabase) {
+        setError(supabaseConfigError || "Supabase is not configured.");
+        setData([]);
+        setTotalCount(0);
+        setLoading(false);
+        return;
+      }
 
       const page = Math.max(1, Number(options.page) || 1);
       const pageSize = Math.max(1, Number(options.pageSize) || 20);

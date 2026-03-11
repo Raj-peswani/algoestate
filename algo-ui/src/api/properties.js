@@ -1,6 +1,9 @@
-import { supabase } from "../lib/supabase";
+import { supabase, supabaseConfigError } from "../lib/supabase";
 
 export async function fetchPropertyFilterOptions() {
+  if (!supabase) {
+    throw new Error(supabaseConfigError || "Supabase is not configured.");
+  }
   const { data, error } = await supabase
     .from("properties")
     .select("city, asset_type")

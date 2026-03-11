@@ -1,4 +1,4 @@
-import { supabase } from "../lib/supabase";
+import { supabase, supabaseConfigError } from "../lib/supabase";
 
 const ALLOWED_SORT_COLUMNS = new Set([
   "transaction_date",
@@ -17,6 +17,9 @@ const ALLOWED_SORT_COLUMNS = new Set([
 ]);
 
 export async function fetchTransactionFilterOptions() {
+  if (!supabase) {
+    throw new Error(supabaseConfigError || "Supabase is not configured.");
+  }
   const { data, error } = await supabase
     .from("transactions")
     .select("city, asset_type, transaction_type")
@@ -44,6 +47,9 @@ export async function fetchTransactionFilterOptions() {
 }
 
 export async function fetchTransactions(params = {}) {
+  if (!supabase) {
+    throw new Error(supabaseConfigError || "Supabase is not configured.");
+  }
   const {
     city = "",
     assetType = "",
