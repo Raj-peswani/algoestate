@@ -40,3 +40,16 @@ Do **not** add service role keys to frontend env vars.
 ## 6) Future updates
 
 Every push to the connected branch triggers a new Vercel deployment automatically.
+
+## 7) Fix `404: NOT_FOUND`
+
+If Vercel shows `404: NOT_FOUND`, check the following in order:
+
+1. In Vercel Project Settings, confirm **Root Directory** is `algo-ui`.
+2. Confirm **Framework Preset** is Vite.
+3. Confirm **Build Command** is `npm run build`.
+4. Confirm **Output Directory** is `dist`.
+5. Trigger a **Redeploy** from the latest commit.
+6. Open the latest **Production** deployment URL (not an old preview URL).
+
+This project also includes `vercel.json` with an SPA rewrite so non-root routes load through `index.html`.
