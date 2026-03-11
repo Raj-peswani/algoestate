@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AlgoEstate — India's Commercial Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0E0F11;
+  --navy:#0A1628;
+  --navy2:#0E1B2C;
+  --mid:#1e2d42;
+  --slate:#3D4A5C;
+  --muted:#6B7585;
+  --muted2:#9BA3AF;
+  --accent:#C8410A;
+  --accent2:#E85C1A;
+  --gold:#B8860B;
+  --surface:#FFFFFF;
+  --surface2:#F7F6F3;
+  --surface3:#F0EDE8;
+  --border:#E2DDD6;
+  --green:#0D7A4E;
+  --green-bg:#ECFDF5;
+  --amber:#92400E;
+  --amber-bg:#FFFBEB;
+  --blue:#1D4ED8;
+  --blue-bg:#EFF6FF;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Instrument Sans',sans-serif;background:var(--navy);color:var(--surface);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── TYPOGRAPHY ── */
+.syne{font-family:'Syne',sans-serif;}
+.mono{font-family:'DM Mono',monospace;}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity:0.025;mix-blend-mode:overlay;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;gap:0;padding:0 48px;height:60px;
+  background:rgba(10,22,40,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.5px;color:#fff;margin-right:48px;flex-shrink:0;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:0;flex:1;}
+.nav-links a{font-size:12.5px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;padding:0 16px;height:60px;display:flex;align-items:center;transition:color 0.15s;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{display:flex;gap:10px;align-items:center;margin-left:auto;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:5px;font-size:12.5px;font-weight:600;font-family:'Instrument Sans',sans-serif;cursor:pointer;border:none;transition:all 0.15s;letter-spacing:0.1px;text-decoration:none;white-space:nowrap;}
+.btn-ghost-sm{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);padding:7px 14px;font-size:12px;}
+.btn-ghost-sm:hover{border-color:rgba(255,255,255,0.4);color:#fff;}
+.btn-accent{background:var(--accent);color:#fff;}
+.btn-accent:hover{background:var(--accent2);}
+.btn-lg{padding:14px 28px;font-size:14px;border-radius:6px;}
+.btn-outline-white{background:none;border:1px solid rgba(255,255,255,0.25);color:#fff;padding:14px 28px;font-size:14px;border-radius:6px;}
+.btn-outline-white:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.4);}
+.badge-nav{font-family:'DM Mono',monospace;font-size:9px;background:var(--accent);color:#fff;padding:2px 7px;border-radius:3px;margin-left:8px;letter-spacing:1px;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 80px 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 60% 40%, rgba(200,65,10,0.12) 0%, transparent 60%),
+             radial-gradient(ellipse 50% 40% at 10% 80%, rgba(29,78,216,0.08) 0%, transparent 50%),
+             linear-gradient(180deg, #0A1628 0%, #060E1A 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 100% 80% at 50% 50%, black 40%, transparent 100%);
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,65,10,0.12);border:1px solid rgba(200,65,10,0.3);
+  border-radius:20px;padding:6px 14px;margin-bottom:28px;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;
+  width:fit-content;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(52px,7vw,92px);letter-spacing:-3px;line-height:0.95;margin-bottom:28px;max-width:900px;}
+.hero-title .line2{color:var(--accent);}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:580px;margin-bottom:40px;}
+.hero-ctas{display:flex;gap:12px;align-items:center;margin-bottom:72px;}
+.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.03);}
+.hero-stat{padding:20px 36px;border-right:1px solid rgba(255,255,255,0.08);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-val{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:-1px;color:#fff;}
+.hero-stat-lbl{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
+.hero-right{position:absolute;right:60px;top:50%;transform:translateY(-50%);width:520px;}
+
+/* ── SCREEN MOCKUP ── */
+.mockup{
+  background:#0E1B2C;border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05);
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0px);}50%{transform:translateY(-12px);}}
+.mockup-bar{background:#060E1A;padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#FF5F57;}
+.dot-y{background:#FEBC2E;}
+.dot-g{background:#28C840;}
+.mockup-addr{flex:1;background:rgba(255,255,255,0.06);border-radius:4px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin:0 12px;}
+.mockup-body{display:flex;height:340px;}
+.mock-sidebar{width:140px;background:#060E1A;border-right:1px solid rgba(255,255,255,0.06);padding:12px 8px;flex-shrink:0;}
+.mock-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#fff;padding:0 8px 12px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:10px;}
+.mock-logo span{color:var(--accent);}
+.mock-sec{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;padding:0 8px;margin:10px 0 4px;}
+.mock-item{padding:6px 8px;border-radius:4px;font-size:10px;color:rgba(255,255,255,0.45);cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:1px;}
+.mock-item.active{background:var(--accent);color:#fff;}
+.mock-item::before{content:'—';font-size:8px;opacity:0.5;}
+.mock-item.active::before{opacity:1;}
+.mock-content{flex:1;padding:14px;overflow:hidden;}
+.mock-topbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.mock-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#fff;}
+.mock-spacer{flex:1;}
+.mock-btn{background:var(--accent);color:#fff;font-size:8px;padding:4px 9px;border-radius:3px;font-weight:600;}
+.mock-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.mock-kpi{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:8px 10px;}
+.mock-kpi-v{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:-0.5px;}
+.mock-kpi-l{font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(255,255,255,0.3);margin-top:2px;}
+.mock-kpi-d{font-family:'DM Mono',monospace;font-size:7px;color:#22c55e;margin-top:2px;}
+.mock-table-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:4px;}
+.mock-th{font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;}
+.mock-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;padding:6px 8px;border-radius:4px;margin-bottom:2px;}
+.mock-row:hover{background:rgba(255,255,255,0.03);}
+.mock-cell{font-size:9px;color:rgba(255,255,255,0.7);}
+.mock-cell.name{font-weight:600;color:#fff;}
+.mock-cell.green{color:#22c55e;}
+.mock-cell.amber{color:#f59e0b;}
+.conf-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:3px;}
+.conf-fill{height:100%;border-radius:2px;background:var(--accent);}
+.badge-sm{font-family:'DM Mono',monospace;font-size:6.5px;padding:2px 5px;border-radius:2px;}
+.b-v{background:rgba(34,197,94,0.15);color:#22c55e;}
+.b-p{background:rgba(245,158,11,0.15);color:#f59e0b;}
+
+/* ── SECTION WRAPPER ── */
+section{padding:100px 80px;}
+.section-light{background:#fff;color:var(--ink);}
+.section-off{background:var(--surface2);color:var(--ink);}
+.section-dark{background:var(--navy2);color:#fff;}
+.section-ink{background:var(--navy);color:#fff;}
+.section-mid{background:#0B1623;color:#fff;}
+
+.section-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+}
+.section-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--accent);}
+.section-h{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,54px);letter-spacing:-2px;line-height:1.0;margin-bottom:20px;}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;}
+.section-sub-light{color:rgba(255,255,255,0.5);}
+
+/* ── MODULES GRID ── */
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:56px;}
+.module-card{background:#fff;padding:36px 32px;position:relative;transition:background 0.2s;}
+.module-card:hover{background:#FDFCFA;}
+.module-card:hover .module-arrow{opacity:1;transform:translateX(0);}
+.module-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px;margin-bottom:20px;}
+.module-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;}
+.module-name{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.5px;color:var(--ink);margin-bottom:10px;}
+.module-desc{font-size:13.5px;color:var(--muted);line-height:1.65;}
+.module-items{margin-top:16px;display:flex;flex-direction:column;gap:4px;}
+.module-item{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);display:flex;align-items:center;gap:8px;}
+.module-item::before{content:'→';color:var(--accent);}
+.module-arrow{position:absolute;bottom:28px;right:28px;font-size:18px;color:var(--accent);opacity:0;transform:translateX(-6px);transition:all 0.2s;}
+
+/* ── DATA MODEL ── */
+.schema-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+.schema-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;}
+.schema-header{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px;}
+.schema-id{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:1px;}
+.schema-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#fff;}
+.schema-body{padding:16px 20px;display:flex;flex-direction:column;gap:5px;}
+.schema-field{display:flex;align-items:center;gap:8px;}
+.field-name{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(255,255,255,0.6);min-width:180px;}
+.field-type{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);background:rgba(200,65,10,0.1);padding:2px 7px;border-radius:3px;}
+.field-note{font-size:10px;color:rgba(255,255,255,0.25);}
+
+/* ── CONFIDENCE ── */
+.confidence-demo{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  border-radius:10px;padding:32px;margin-top:48px;
+}
+.conf-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.conf-overall{
+  width:80px;height:80px;border-radius:50%;
+  background:conic-gradient(var(--accent) 0% 87%, rgba(255,255,255,0.08) 87% 100%);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.conf-overall::before{content:'';position:absolute;inset:6px;border-radius:50%;background:#0E1B2C;}
+.conf-overall-num{position:relative;font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#fff;}
+.conf-components{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;}
+.conf-comp{background:rgba(255,255,255,0.04);border-radius:6px;padding:14px;}
+.comp-bar-wrap{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin:8px 0;}
+.comp-bar-fill{height:100%;border-radius:2px;background:var(--accent);}
+.comp-name{font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;}
+.comp-score{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:#fff;}
+.comp-max{font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);}
+.comp-note{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
+
+/* ── WORKFLOWS ── */
+.workflows{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.wf-card{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
+.wf-header{padding:24px 24px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.wf-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;}
+.wf-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:6px;}
+.wf-persona{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
+.wf-steps{padding:20px 24px;display:flex;flex-direction:column;gap:12px;}
+.wf-step{display:flex;gap:12px;align-items:flex-start;}
+.wf-step-num{width:20px;height:20px;border-radius:50%;background:rgba(200,65,10,0.15);border:1px solid rgba(200,65,10,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);flex-shrink:0;margin-top:1px;}
+.wf-step-text{font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.5;}
+
+/* ── ROLES ── */
+.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
+.role-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:28px 24px;position:relative;overflow:hidden;}
+.role-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.role-investor::before{background:#1D4ED8;}
+.role-broker::before{background:#0D7A4E;}
+.role-analyst::before{background:#7C3AED;}
+.role-admin::before{background:var(--accent);}
+.role-icon{font-size:32px;margin-bottom:16px;}
+.role-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--ink);margin-bottom:8px;}
+.role-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.role-access{display:flex;flex-direction:column;gap:4px;}
+.access-item{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--slate);display:flex;align-items:center;gap:6px;}
+.access-item::before{content:'✓';color:var(--green);}
+.access-item.no::before{content:'—';color:var(--muted2);}
+
+/* ── PHASES ── */
+.phases{margin-top:56px;display:flex;flex-direction:column;gap:0;}
+.phase{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:grid;grid-template-columns:200px 1fr;gap:48px;}
+.phase:last-child{border-bottom:none;}
+.phase-left{display:flex;flex-direction:column;gap:12px;}
+.phase-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;}
+.phase-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:#fff;line-height:1.2;}
+.phase-timeline{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);margin-top:4px;}
+.phase-badge{display:inline-flex;padding:4px 10px;border-radius:4px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;width:fit-content;margin-top:8px;}
+.pb-1{background:rgba(29,78,216,0.15);color:#60A5FA;border:1px solid rgba(29,78,216,0.25);}
+.pb-2{background:rgba(13,122,78,0.15);color:#34D399;border:1px solid rgba(13,122,78,0.25);}
+.pb-3{background:rgba(124,58,237,0.15);color:#A78BFA;border:1px solid rgba(124,58,237,0.25);}
+.phase-right{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.phase-block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:18px;}
+.phase-block-title{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.phase-items{display:flex;flex-direction:column;gap:5px;}
+.phase-item{font-size:12px;color:rgba(255,255,255,0.55);display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
+.phase-item::before{content:'→';color:var(--accent);flex-shrink:0;font-size:10px;margin-top:1px;}
+
+/* ── API TABLE ── */
+.api-table{width:100%;border-collapse:collapse;margin-top:32px;font-size:12.5px;}
+.api-table thead th{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:10px 16px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);}
+.api-table tbody tr{border-bottom:1px solid rgba(255,255,255,0.04);}
+.api-table tbody tr:hover{background:rgba(255,255,255,0.02);}
+.api-table td{padding:11px 16px;vertical-align:top;}
+.api-endpoint{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);}
+.api-method{font-family:'DM Mono',monospace;font-size:10px;}
+.method-get{color:#60A5FA;}
+.method-post{color:#34D399;}
+.method-patch{color:#FBBF24;}
+.api-desc{color:rgba(255,255,255,0.5);font-size:12px;}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  padding:120px 80px;text-align:center;
+  background:linear-gradient(135deg, #0A1628 0%, #0E1B2C 50%, #110C1E 100%);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle, rgba(200,65,10,0.12) 0%, transparent 70%);
+}
+.cta-h{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);letter-spacing:-2.5px;line-height:1.0;color:#fff;margin-bottom:20px;position:relative;}
+.cta-sub{font-size:17px;color:rgba(255,255,255,0.45);max-width:500px;margin:0 auto 40px;line-height:1.7;position:relative;}
+.cta-btns{display:flex;gap:12px;justify-content:center;position:relative;}
+
+/* ── FOOTER ── */
+footer{
+  padding:48px 80px;background:#060E1A;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#fff;}
+.footer-logo span{color:var(--accent);}
+.footer-links{display:flex;gap:28px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.15s;}
+.footer-links a:hover{color:rgba(255,255,255,0.7);}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease, transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.stagger-1{transition-delay:0.1s;}
+.stagger-2{transition-delay:0.2s;}
+.stagger-3{transition-delay:0.3s;}
+.stagger-4{transition-delay:0.4s;}
+
+/* ── TICKER ── */
+.ticker{overflow:hidden;height:40px;display:flex;align-items:center;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);}
+.ticker-inner{display:flex;gap:0;animation:ticker 30s linear infinite;width:max-content;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.tick{display:flex;align-items:center;gap:8px;padding:0 24px;border-right:1px solid rgba(255,255,255,0.07);height:40px;white-space:nowrap;}
+.tick-nm{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);}
+.tick-val{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.65);font-weight:500;}
+.tick-up{font-family:'DM Mono',monospace;font-size:8px;color:#22c55e;}
+.tick-dn{font-family:'DM Mono',monospace;font-size:8px;color:#f87171;}
+
+/* ── DIVIDER ── */
+.sect-divider{height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);}
+
+/* ── QUOTE ── */
+.quote-block{
+  padding:56px 80px;background:var(--navy2);
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+}
+.quote-text{font-family:'Syne',sans-serif;font-weight:600;font-size:28px;line-height:1.4;color:#fff;letter-spacing:-0.5px;}
+.quote-text em{color:var(--accent);font-style:normal;}
+.quote-meta{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-top:20px;}
+.quote-right{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.q-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:20px;}
+.q-stat-val{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:#fff;letter-spacing:-1px;}
+.q-stat-acc{color:var(--accent);}
+.q-stat-lbl{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px;}
+
+/* ─ responsive ─ */
+@media(max-width:1100px){.hero-right{display:none;}.hero-title{font-size:clamp(42px,6vw,72px);}}
+@media(max-width:860px){
+  section{padding:60px 24px;}
+  .hero{padding:100px 24px 60px;}
+  .modules-grid{grid-template-columns:1fr;}
+  .schema-grid{grid-template-columns:1fr;}
+  .workflows{grid-template-columns:1fr;}
+  .roles-grid{grid-template-columns:1fr 1fr;}
+  .phase{grid-template-columns:1fr;}
+  .quote-block{grid-template-columns:1fr;padding:40px 24px;}
+  .footer{flex-direction:column;gap:20px;text-align:center;padding:32px 24px;}
+  nav{padding:0 20px;}
+  .hero-stats{flex-direction:column;}
+  .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo syne">ALGO<span>ESTATE</span></div>
+  <div class="nav-links">
+    <a href="#platform">Platform</a>
+    <a href="#data-model">Data Model</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#api">API</a>
+  </div>
+  <div class="nav-cta">
+    <span class="badge-nav">v2.0</span>
+    <a href="#" class="btn btn-ghost-sm">Documentation</a>
+    <a href="#cta" class="btn btn-accent">Request Access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:2;">
+    <div class="hero-eyebrow mono">India's CoStar-Grade CRE Intelligence</div>
+    <h1 class="hero-title syne">
+      <span class="line1">The Intelligence<br></span>
+      <span class="line2">Layer for India<br></span>
+      <span style="color:rgba(255,255,255,0.4);">Commercial Real Estate</span>
+    </h1>
+    <p class="hero-sub">Canonical property records · Transactions · Tenants · Owners · Loans · Auditability. Built for institutional-grade underwriting, not just listings.</p>
+    <div class="hero-ctas">
+      <a href="#platform" class="btn btn-accent btn-lg">Explore Platform →</a>
+      <a href="#roadmap" class="btn btn-outline-white">View Roadmap</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val syne">8</div>
+        <div class="hero-stat-lbl mono">Cities Covered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val syne">9</div>
+        <div class="hero-stat-lbl mono">Entity Modules</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val syne">22+</div>
+        <div class="hero-stat-lbl mono">REST Endpoints</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val syne">87%</div>
+        <div class="hero-stat-lbl mono">Avg. Confidence Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCKUP -->
+  <div class="hero-right">
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <div class="mockup-addr">algoestate.in/properties/buildings</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-sidebar">
+          <div class="mock-logo syne">ALGO<span>ESTATE</span></div>
+          <div class="mock-sec mono">Discovery</div>
+          <div class="mock-item active">Market Search</div>
+          <div class="mock-item">Market Map</div>
+          <div class="mock-item">India Research</div>
+          <div class="mock-item">Building Profile</div>
+          <div class="mock-sec mono" style="margin-top:14px;">Transactions</div>
+          <div class="mock-item">Sales Comps</div>
+          <div class="mock-item">Lease Activity</div>
+          <div class="mock-sec mono" style="margin-top:14px;">Entities</div>
+          <div class="mock-item">Tenants</div>
+          <div class="mock-item">Owners</div>
+        </div>
+        <div class="mock-content">
+          <div class="mock-topbar">
+            <div class="mock-title syne">Market Search</div>
+            <div class="mock-spacer"></div>
+            <div class="mock-btn">+ List Property</div>
+          </div>
+          <div class="mock-kpis">
+            <div class="mock-kpi"><div class="mock-kpi-v syne">1,284</div><div class="mock-kpi-l mono">Active Listings</div><div class="mock-kpi-d mono">▲ +12%</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-v syne">₹128</div><div class="mock-kpi-l mono">Avg Rent/sqft</div><div class="mock-kpi-d mono">▲ +3.2%</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-v syne">94M</div><div class="mock-kpi-l mono">Industrial sqft</div><div class="mock-kpi-d mono">▲ +8%</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-v syne">47</div><div class="mock-kpi-l mono">Distress Open</div><div class="mock-kpi-d mono" style="color:#f59e0b;">— stable</div></div>
+          </div>
+          <div class="mock-table-header">
+            <div class="mock-th">Asset</div>
+            <div class="mock-th">Type</div>
+            <div class="mock-th">Area</div>
+            <div class="mock-th">Asking</div>
+            <div class="mock-th">Conf.</div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-cell name">Prestige Platina, BKC</div>
+            <div class="mock-cell"><span class="badge-sm b-v">Office</span></div>
+            <div class="mock-cell">9,200 sqft</div>
+            <div class="mock-cell">₹132</div>
+            <div class="mock-cell"><div class="conf-bar"><div class="conf-fill" style="width:91%"></div></div></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-cell name">One BKC, Floor 8</div>
+            <div class="mock-cell"><span class="badge-sm b-v">Office</span></div>
+            <div class="mock-cell">14,500 sqft</div>
+            <div class="mock-cell">₹158</div>
+            <div class="mock-cell"><div class="conf-bar"><div class="conf-fill" style="width:85%"></div></div></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-cell name">Embassy Tech Village</div>
+            <div class="mock-cell"><span class="badge-sm b-p">Industrial</span></div>
+            <div class="mock-cell">22,000 sqft</div>
+            <div class="mock-cell">₹88</div>
+            <div class="mock-cell"><div class="conf-bar"><div class="conf-fill" style="width:76%"></div></div></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-cell name">Hiranandani DC-1, HITEC</div>
+            <div class="mock-cell"><span class="badge-sm" style="background:rgba(124,58,237,0.15);color:#a78bfa;">DC</span></div>
+            <div class="mock-cell">5,000 kW IT</div>
+            <div class="mock-cell">₹245</div>
+            <div class="mock-cell"><div class="conf-bar"><div class="conf-fill" style="width:93%"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="tick"><span class="tick-nm mono">BKC · OFFICE</span><span class="tick-val mono">₹152/sqft</span><span class="tick-up mono">▲ +2.1%</span></div>
+    <div class="tick"><span class="tick-nm mono">WHITEFIELD · OFFICE</span><span class="tick-val mono">₹98/sqft</span><span class="tick-up mono">▲ +1.8%</span></div>
+    <div class="tick"><span class="tick-nm mono">HITEC CITY · OFFICE</span><span class="tick-val mono">₹88/sqft</span><span class="tick-up mono">▲ +3.4%</span></div>
+    <div class="tick"><span class="tick-nm mono">DLF CYBER CITY · OFFICE</span><span class="tick-val mono">₹145/sqft</span><span class="tick-dn mono">▼ -0.5%</span></div>
+    <div class="tick"><span class="tick-nm mono">PUNE CBD · OFFICE</span><span class="tick-val mono">₹77/sqft</span><span class="tick-up mono">▲ +1.3%</span></div>
+    <div class="tick"><span class="tick-nm mono">CHENNAI OMR · OFFICE</span><span class="tick-val mono">₹68/sqft</span><span class="tick-up mono">▲ +0.9%</span></div>
+    <div class="tick"><span class="tick-nm mono">SARFAESI · OPEN CASES</span><span class="tick-val mono">247</span><span class="tick-up mono">▲ +14</span></div>
+    <div class="tick"><span class="tick-nm mono">IBC LIQUIDATION · OPEN</span><span class="tick-val mono">83</span><span class="tick-dn mono">▼ -3</span></div>
+    <div class="tick"><span class="tick-nm mono">BKC · OFFICE</span><span class="tick-val mono">₹152/sqft</span><span class="tick-up mono">▲ +2.1%</span></div>
+    <div class="tick"><span class="tick-nm mono">WHITEFIELD · OFFICE</span><span class="tick-val mono">₹98/sqft</span><span class="tick-up mono">▲ +1.8%</span></div>
+    <div class="tick"><span class="tick-nm mono">HITEC CITY · OFFICE</span><span class="tick-val mono">₹88/sqft</span><span class="tick-up mono">▲ +3.4%</span></div>
+    <div class="tick"><span class="tick-nm mono">DLF CYBER CITY · OFFICE</span><span class="tick-val mono">₹145/sqft</span><span class="tick-dn mono">▼ -0.5%</span></div>
+    <div class="tick"><span class="tick-nm mono">PUNE CBD · OFFICE</span><span class="tick-val mono">₹77/sqft</span><span class="tick-up mono">▲ +1.3%</span></div>
+    <div class="tick"><span class="tick-nm mono">CHENNAI OMR · OFFICE</span><span class="tick-val mono">₹68/sqft</span><span class="tick-up mono">▲ +0.9%</span></div>
+    <div class="tick"><span class="tick-nm mono">SARFAESI · OPEN CASES</span><span class="tick-val mono">247</span><span class="tick-up mono">▲ +14</span></div>
+    <div class="tick"><span class="tick-nm mono">IBC LIQUIDATION · OPEN</span><span class="tick-val mono">83</span><span class="tick-dn mono">▼ -3</span></div>
+  </div>
+</div>
+
+<!-- PLATFORM MODULES -->
+<section class="section-light" id="platform">
+  <div class="section-tag">Platform Architecture</div>
+  <h2 class="section-h" style="color:var(--ink);">Nine Modules.<br>One Entity Graph.</h2>
+  <p class="section-sub">Every module is self-contained, deep-drillable, and cross-linked to the canonical entity graph. CoStar-style navigation organized by what you care about.</p>
+
+  <div class="modules-grid fade-up">
+    <div class="module-card">
+      <div class="module-num mono">01 — DISCOVERY</div>
+      <div class="module-icon" style="background:#EFF6FF;">🏢</div>
+      <div class="module-name syne">Properties</div>
+      <div class="module-desc">Canonical property and building records with stable UUIDs, geocoded parcels, and field-level provenance. The foundation of the entity graph.</div>
+      <div class="module-items">
+        <div class="module-item">Property Records</div>
+        <div class="module-item">Building Profiles</div>
+        <div class="module-item">Unit / Floor Availability</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">02 — DEALS</div>
+      <div class="module-icon" style="background:#ECFDF5;">📊</div>
+      <div class="module-name syne">Transactions</div>
+      <div class="module-desc">Sales comps and lease activity tracked with buyer/seller, ₹/sqft, cap rates, tenant, rent, term — verified and confidence-scored.</div>
+      <div class="module-items">
+        <div class="module-item">Sales Comps (with cap rates)</div>
+        <div class="module-item">Lease Activity</div>
+        <div class="module-item">Expiration Heatmap</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">03 — OCCUPIERS</div>
+      <div class="module-icon" style="background:#FDF4FF;">🏭</div>
+      <div class="module-name syne">Tenants</div>
+      <div class="module-desc">India's CRE occupier directory with PAN/CIN linkage, city-level footprint, lease expirations, and growth signals from hiring data.</div>
+      <div class="module-items">
+        <div class="module-item">Tenant Directory</div>
+        <div class="module-item">Lease Expiration Alerts</div>
+        <div class="module-item">Growth Signal Feed</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">04 — CAPITAL</div>
+      <div class="module-icon" style="background:#FFF7ED;">🏦</div>
+      <div class="module-name syne">Owners & Loans</div>
+      <div class="module-desc">Ownership mapping via MCA registry, portfolio concentration, hold periods, CERSAI loan data, and maturity schedules to find motivated sellers.</div>
+      <div class="module-items">
+        <div class="module-item">Owner Directory + Portfolio</div>
+        <div class="module-item">Loan Register (CERSAI)</div>
+        <div class="module-item">Deeds & Public Record</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">05 — INTELLIGENCE</div>
+      <div class="module-icon" style="background:#FFF1F2;">📈</div>
+      <div class="module-name syne">Analytics</div>
+      <div class="module-desc">Market dashboards with sub-market drill-down, absorption trends, vacancy trajectories, and a self-serve custom report builder with scheduling.</div>
+      <div class="module-items">
+        <div class="module-item">Market Analytics (8 cities)</div>
+        <div class="module-item">Custom Report Builder</div>
+        <div class="module-item">India Research Snapshots</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">06 — DISTRESS</div>
+      <div class="module-icon" style="background:#FFFBEB;">⚠️</div>
+      <div class="module-name syne">Distress Hub</div>
+      <div class="module-desc">SARFAESI, IBC/Liquidation, DRT, and SEBI distress feeds with reserve price vs. market value deltas, evidence packs, and pre-distress watchlists.</div>
+      <div class="module-items">
+        <div class="module-item">Auctions & Notices Feed</div>
+        <div class="module-item">Case Records with Evidence</div>
+        <div class="module-item">Pre-Distress Watchlist</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card" style="grid-column:span 2;">
+      <div class="module-num mono">07 — NEW IN V2</div>
+      <div class="module-icon" style="background:#F0F4FF;">🖥️</div>
+      <div class="module-name syne">Data Center Asset Type</div>
+      <div class="module-desc">Full technical spec support for colocation, hyperscale, and edge DC facilities — including IT Load (kW), PUE, Tier Classification, Raised Floor Height, Floor Load Bearing, MeitY empanelment, and cooling type. Critical for India's 2025–2030 DC investment cycle.</div>
+      <div class="module-items" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+        <div class="module-item">IT Load Capacity (kW)</div>
+        <div class="module-item">PUE Rating</div>
+        <div class="module-item">Tier I–IV Classification</div>
+        <div class="module-item">Raised Floor Height</div>
+        <div class="module-item">Floor Load Bearing</div>
+        <div class="module-item">MeitY / DoT Compliance</div>
+        <div class="module-item">Redundancy Level (N+1 / 2N)</div>
+        <div class="module-item">Cooling Type</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+    <div class="module-card">
+      <div class="module-num mono">08 — OPERATIONS</div>
+      <div class="module-icon" style="background:#F0FDF4;">⚙️</div>
+      <div class="module-name syne">Admin & QA</div>
+      <div class="module-desc">Data source registry, QA verification queues, user role management, and append-only audit log. Every mutation traceable to user, timestamp, and source.</div>
+      <div class="module-items">
+        <div class="module-item">Sources & Scrapers</div>
+        <div class="module-item">QA Queue + Verification</div>
+        <div class="module-item">Audit Log</div>
+      </div>
+      <div class="module-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE / STATS -->
+<div class="quote-block">
+  <div>
+    <p class="quote-text">"Not a listings site — a <em>canonical intelligence layer</em> for every property, building, transaction, tenant, owner, and loan in commercial India."</p>
+    <div class="quote-meta mono">ALGOESTATE v2.0 · PLATFORM SPECIFICATION · MARCH 2026</div>
+  </div>
+  <div class="quote-right">
+    <div class="q-stat"><div class="q-stat-val syne">500<span class="q-stat-acc">+</span></div><div class="q-stat-lbl mono">Grade A Buildings<br>at launch</div></div>
+    <div class="q-stat"><div class="q-stat-val syne">3<span class="q-stat-acc">→8</span></div><div class="q-stat-lbl mono">Cities: Phase 1<br>to Phase 3</div></div>
+    <div class="q-stat"><div class="q-stat-val syne">12<span class="q-stat-acc"></span></div><div class="q-stat-lbl mono">Canonical entity<br>schemas</div></div>
+    <div class="q-stat"><div class="q-stat-val syne">4<span class="q-stat-acc"></span></div><div class="q-stat-lbl mono">User roles with<br>granular access</div></div>
+  </div>
+</div>
+
+<!-- DATA MODEL -->
+<section class="section-mid" id="data-model">
+  <div class="section-tag" style="color:var(--accent);">Data Architecture</div>
+  <h2 class="section-h">Canonical Entity<br>Schemas</h2>
+  <p class="section-sub section-sub-light">All records carry stable UUIDs (ae_XXX_xxxxxxxx). Provenance tracked at field level via EvidenceItem. Confidence is explainable. All mutations are append-only changelog entries.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card fade-up">
+      <div class="schema-header">
+        <div>
+          <div class="schema-id mono">ae_prop_*</div>
+          <div class="schema-name syne">Property</div>
+        </div>
+      </div>
+      <div class="schema-body">
+        <div class="schema-field"><span class="field-name mono">ae_property_id</span><span class="field-type">uuid</span><span class="field-note">Stable canonical ID</span></div>
+        <div class="schema-field"><span class="field-name mono">parcel_id</span><span class="field-type">string</span><span class="field-note">Revenue record ref</span></div>
+        <div class="schema-field"><span class="field-name mono">address{lat,lng,city}</span><span class="field-type">object</span><span class="field-note">Geocoded</span></div>
+        <div class="schema-field"><span class="field-name mono">zoning</span><span class="field-type">enum</span><span class="field-note">Commercial/Industrial/Mixed</span></div>
+        <div class="schema-field"><span class="field-name mono">fsi</span><span class="field-type">float</span><span class="field-note">Floor Space Index</span></div>
+        <div class="schema-field"><span class="field-name mono">title_status</span><span class="field-type">enum</span><span class="field-note">Clear/Encumbered/Disputed</span></div>
+        <div class="schema-field"><span class="field-name mono">confidence_score</span><span class="field-type">object</span><span class="field-note">Explainable 5-component</span></div>
+      </div>
+    </div>
+    <div class="schema-card fade-up stagger-1">
+      <div class="schema-header">
+        <div>
+          <div class="schema-id mono">ae_bldg_*</div>
+          <div class="schema-name syne">Building</div>
+        </div>
+      </div>
+      <div class="schema-body">
+        <div class="schema-field"><span class="field-name mono">name, grade</span><span class="field-type">string/enum</span><span class="field-note">A+/A/B+</span></div>
+        <div class="schema-field"><span class="field-name mono">gla_sqft</span><span class="field-type">int</span><span class="field-note">Gross Leasable Area</span></div>
+        <div class="schema-field"><span class="field-name mono">floors_above/below</span><span class="field-type">int</span></div>
+        <div class="schema-field"><span class="field-name mono">occupancy_pct</span><span class="field-type">float</span></div>
+        <div class="schema-field"><span class="field-name mono">ceiling_height_ft</span><span class="field-type">float</span><span class="field-note">Critical field</span></div>
+        <div class="schema-field"><span class="field-name mono">certifications[]</span><span class="field-type">array</span><span class="field-note">LEED/IGBC/USGBC</span></div>
+        <div class="schema-field"><span class="field-name mono">asking_rent_range_inr</span><span class="field-type">object</span><span class="field-note">{min, max}</span></div>
+      </div>
+    </div>
+    <div class="schema-card fade-up stagger-2">
+      <div class="schema-header">
+        <div>
+          <div class="schema-id mono">ae_lse_*</div>
+          <div class="schema-name syne">LeaseTransaction</div>
+        </div>
+      </div>
+      <div class="schema-body">
+        <div class="schema-field"><span class="field-name mono">tenant_id</span><span class="field-type">ref → Tenant</span></div>
+        <div class="schema-field"><span class="field-name mono">rent_inr_sqft_mo</span><span class="field-type">float</span></div>
+        <div class="schema-field"><span class="field-name mono">term_years</span><span class="field-type">float</span></div>
+        <div class="schema-field"><span class="field-name mono">start_date, end_date</span><span class="field-type">date</span></div>
+        <div class="schema-field"><span class="field-name mono">lock_in_years</span><span class="field-type">float</span></div>
+        <div class="schema-field"><span class="field-name mono">fit_out_inr_sqft</span><span class="field-type">float</span></div>
+        <div class="schema-field"><span class="field-name mono">rent_free_months</span><span class="field-type">int</span></div>
+      </div>
+    </div>
+    <div class="schema-card fade-up stagger-3">
+      <div class="schema-header">
+        <div>
+          <div class="schema-id mono">ae_evi_*</div>
+          <div class="schema-name syne">EvidenceItem</div>
+        </div>
+      </div>
+      <div class="schema-body">
+        <div class="schema-field"><span class="field-name mono">entity_type / entity_id</span><span class="field-type">ref</span><span class="field-note">Any entity</span></div>
+        <div class="schema-field"><span class="field-name mono">field_name</span><span class="field-type">string</span><span class="field-note">Field-level provenance</span></div>
+        <div class="schema-field"><span class="field-name mono">value</span><span class="field-type">string</span></div>
+        <div class="schema-field"><span class="field-name mono">source_type</span><span class="field-type">enum</span><span class="field-note">Broker/Scraped/Public/Survey</span></div>
+        <div class="schema-field"><span class="field-name mono">source_ref</span><span class="field-type">string</span><span class="field-note">URL or doc ref</span></div>
+        <div class="schema-field"><span class="field-name mono">verified_by</span><span class="field-type">user_ref</span></div>
+        <div class="schema-field"><span class="field-name mono">verification_method</span><span class="field-type">enum</span><span class="field-note">DocMatch/SiteVisit/CrossSource</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIDENCE SCORE DEMO -->
+  <div class="confidence-demo fade-up">
+    <div class="conf-title syne">
+      <div>
+        <div class="conf-overall">
+          <div class="conf-overall-num syne">87</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;font-weight:400;margin-bottom:4px;">CONFIDENCE SCORE</div>
+        Explainable by Component — Prestige Platina, BKC
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px;font-family:'DM Mono',monospace;font-weight:400;">Decays linearly over 30 days · Last verified: 2 days ago</div>
+      </div>
+    </div>
+    <div class="conf-components">
+      <div class="conf-comp">
+        <div class="comp-name mono">Freshness</div>
+        <div class="comp-score syne">22<span class="comp-max" style="font-size:14px;">/25</span></div>
+        <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:88%"></div></div>
+        <div class="comp-note">Updated 2 days ago</div>
+      </div>
+      <div class="conf-comp">
+        <div class="comp-name mono">Source Count</div>
+        <div class="comp-score syne">18<span class="comp-max" style="font-size:14px;">/20</span></div>
+        <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:90%"></div></div>
+        <div class="comp-note">3 independent sources</div>
+      </div>
+      <div class="conf-comp">
+        <div class="comp-name mono">Source Tier</div>
+        <div class="comp-score syne">20<span class="comp-max" style="font-size:14px;">/25</span></div>
+        <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:80%"></div></div>
+        <div class="comp-note">2× Tier-1, 1× Tier-2</div>
+      </div>
+      <div class="conf-comp">
+        <div class="comp-name mono">Verification</div>
+        <div class="comp-score syne">15<span class="comp-max" style="font-size:14px;">/20</span></div>
+        <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:75%"></div></div>
+        <div class="comp-note">Document match verified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section class="section-off" id="workflows">
+  <div class="section-tag">Institutional Workflows</div>
+  <h2 class="section-h" style="color:var(--ink);">Built for How Institutions<br>Actually Work</h2>
+  <p class="section-sub">Three end-to-end workflows designed for real use cases — not demo scenarios.</p>
+
+  <div class="workflows">
+    <div class="wf-card fade-up" style="background:var(--navy2);">
+      <div class="wf-header" style="background:rgba(29,78,216,0.08);border-bottom-color:rgba(29,78,216,0.15);">
+        <div class="wf-num mono">01 — INVESTMENT</div>
+        <div class="wf-title syne">Underwriting</div>
+        <div class="wf-persona mono">PERSONA: INVESTOR / PE FUND</div>
+      </div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-num">1</div><div class="wf-step-text">Analytics → filter sub-market (HITEC City, Office A+), review vacancy/absorption/rent trends</div></div>
+        <div class="wf-step"><div class="wf-step-num">2</div><div class="wf-step-text">Property Records → filter, add 3–5 buildings to Compare Tray → side-by-side canvas</div></div>
+        <div class="wf-step"><div class="wf-step-num">3</div><div class="wf-step-text">Building Profile → Lease Roll, Stacking Plan, Owner tab, Loan maturity, Change Log</div></div>
+        <div class="wf-step"><div class="wf-step-num">4</div><div class="wf-step-text">Sales Comps → last 24 months in sub-market → establish ₹/sqft and cap rate benchmarks</div></div>
+        <div class="wf-step"><div class="wf-step-num">5</div><div class="wf-step-text">Create Report → "Investment Underwriting Pack" → auto-populates → export PDF or XLSX</div></div>
+      </div>
+    </div>
+    <div class="wf-card fade-up stagger-1" style="background:var(--navy2);">
+      <div class="wf-header" style="background:rgba(13,122,78,0.08);border-bottom-color:rgba(13,122,78,0.2);">
+        <div class="wf-num mono">02 — LEASING</div>
+        <div class="wf-title syne">Broker Prospecting</div>
+        <div class="wf-persona mono">PERSONA: BROKER / AGENT</div>
+      </div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-num">1</div><div class="wf-step-text">Tenants → Lease Expirations → filter: Bengaluru, IT/GCC, 12–18 months, 50k+ sqft</div></div>
+        <div class="wf-step"><div class="wf-step-num">2</div><div class="wf-step-text">Filter by Growth Signals: hiring surge, headcount +12% YoY, new GCC mandate flags</div></div>
+        <div class="wf-step"><div class="wf-step-num">3</div><div class="wf-step-text">Listings → Whitefield, 80k–150k sqft contiguous, Grade A, available <6 months → Compare</div></div>
+        <div class="wf-step"><div class="wf-step-num">4</div><div class="wf-step-text">Owner Tab: identify entity, contact, portfolio; flag owners with loan maturity <12 months</div></div>
+        <div class="wf-step"><div class="wf-step-num">5</div><div class="wf-step-text">Export Outreach List CSV: [Building, Owner, Contact, Sqft, Asking Rent, Loan Maturity]</div></div>
+      </div>
+    </div>
+    <div class="wf-card fade-up stagger-2" style="background:var(--navy2);">
+      <div class="wf-header" style="background:rgba(200,65,10,0.08);border-bottom-color:rgba(200,65,10,0.2);">
+        <div class="wf-num mono">03 — DISTRESS</div>
+        <div class="wf-title syne">Distress Pipeline</div>
+        <div class="wf-persona mono">PERSONA: INVESTOR / ANALYST</div>
+      </div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-num">1</div><div class="wf-step-text">Distress Hub → filter: Mumbai, SARFAESI, Office/Industrial → sort auction_date ascending</div></div>
+        <div class="wf-step"><div class="wf-step-num">2</div><div class="wf-step-text">Review reserve price vs. auto-computed market value delta from comps (discount flag)</div></div>
+        <div class="wf-step"><div class="wf-step-num">3</div><div class="wf-step-text">Case Record → property linkage, lender, borrower, DRT/IBC refs, evidence pack</div></div>
+        <div class="wf-step"><div class="wf-step-num">4</div><div class="wf-step-text">Cross-link to Property Record → encumbrances, prior sales, building condition</div></div>
+        <div class="wf-step"><div class="wf-step-num">5</div><div class="wf-step-text">Watchlist → set alerts: reserve price drop, new doc, auction date change, status change</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USER ROLES -->
+<section class="section-light">
+  <div class="section-tag">Access Control</div>
+  <h2 class="section-h" style="color:var(--ink);">Four Roles.<br>Precise Permissions.</h2>
+  <p class="section-sub">Every module and action is scoped by role. RBAC enforced at the API layer — not just the UI.</p>
+  <div class="roles-grid">
+    <div class="role-card role-investor fade-up">
+      <div class="role-icon">💼</div>
+      <div class="role-name syne">Investor</div>
+      <div class="role-desc">Read-only access to all market intelligence. Can run saved reports and export underwriting packs.</div>
+      <div class="role-access">
+        <div class="access-item">Property Records (Read)</div>
+        <div class="access-item">Sales & Lease Comps (Read)</div>
+        <div class="access-item">Market Analytics</div>
+        <div class="access-item">Distress Hub</div>
+        <div class="access-item">Custom Reports (Run)</div>
+        <div class="access-item no">Evidence Pack — Submit</div>
+        <div class="access-item no">Admin / QA</div>
+      </div>
+    </div>
+    <div class="role-card role-broker fade-up stagger-1">
+      <div class="role-icon">🤝</div>
+      <div class="role-name syne">Broker</div>
+      <div class="role-desc">Can list properties, manage evidence packs, and run lease activity. Primary data contributor role.</div>
+      <div class="role-access">
+        <div class="access-item">Listings — Create/Edit</div>
+        <div class="access-item">Lease Activity (Full)</div>
+        <div class="access-item">Tenant Directory (Full)</div>
+        <div class="access-item">Evidence Pack — Submit</div>
+        <div class="access-item">Distress Hub</div>
+        <div class="access-item no">Loans & Public Record</div>
+        <div class="access-item no">Admin / QA</div>
+      </div>
+    </div>
+    <div class="role-card role-analyst fade-up stagger-2">
+      <div class="role-icon">🔬</div>
+      <div class="role-name syne">Research Analyst</div>
+      <div class="role-desc">Full read across all datasets. Can build and save custom reports. Primary market intelligence consumer.</div>
+      <div class="role-access">
+        <div class="access-item">All Records (Read)</div>
+        <div class="access-item">Loans & Public Record (Read)</div>
+        <div class="access-item">Custom Reports (Build/Save)</div>
+        <div class="access-item">Market Analytics (Export)</div>
+        <div class="access-item">Distress Hub</div>
+        <div class="access-item no">Evidence Pack — Verify</div>
+        <div class="access-item no">Admin / QA</div>
+      </div>
+    </div>
+    <div class="role-card role-admin fade-up stagger-3">
+      <div class="role-icon">⚙️</div>
+      <div class="role-name syne">Admin</div>
+      <div class="role-desc">Full platform control. Verifies evidence, manages sources, assigns roles, and has access to the complete audit log.</div>
+      <div class="role-access">
+        <div class="access-item">Full Access — All Modules</div>
+        <div class="access-item">Evidence Pack — Verify</div>
+        <div class="access-item">Sources & QA Queue</div>
+        <div class="access-item">User Role Management</div>
+        <div class="access-item">Audit Log (All Mutations)</div>
+        <div class="access-item">Custom Reports (Full)</div>
+        <div class="access-item">Data Source Registry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API -->
+<section class="section-mid" id="api">
+  <div class="section-tag" style="color:var(--accent);">API Reference</div>
+  <h2 class="section-h">22+ REST Endpoints.<br>Search → Export.</h2>
+  <p class="section-sub section-sub-light">Unified search across all entity types. Property, building, tenant, owner, loan, distress — all cross-linked. Compare tray and scheduled report export included.</p>
+
+  <table class="api-table">
+    <thead>
+      <tr>
+        <th>Endpoint</th>
+        <th>Method</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="api-endpoint">/api/v1/search</td><td class="api-method method-get">GET</td><td class="api-desc">Unified typeahead search across properties, tenants, owners, loans, distress</td></tr>
+      <tr><td class="api-endpoint">/api/v1/properties</td><td class="api-method method-get">GET</td><td class="api-desc">List/filter canonical property records with confidence filter</td></tr>
+      <tr><td class="api-endpoint">/api/v1/properties/:id</td><td class="api-method method-get">GET</td><td class="api-desc">Property detail — buildings, transactions, owners, loans, changelog</td></tr>
+      <tr><td class="api-endpoint">/api/v1/buildings/:id</td><td class="api-method method-get">GET</td><td class="api-desc">Building profile — units, comps, stacking plan, evidence, changelog</td></tr>
+      <tr><td class="api-endpoint">/api/v1/listings</td><td class="api-method method-post">POST</td><td class="api-desc">Create listing with inline evidence pack submission</td></tr>
+      <tr><td class="api-endpoint">/api/v1/listings/:id</td><td class="api-method method-patch">PATCH</td><td class="api-desc">Update listing fields; triggers confidence recalculation</td></tr>
+      <tr><td class="api-endpoint">/api/v1/transactions/sales</td><td class="api-method method-get">GET</td><td class="api-desc">Sales comps with filters: city, sub-market, date, cap rate, area, verified</td></tr>
+      <tr><td class="api-endpoint">/api/v1/transactions/leases</td><td class="api-method method-get">GET</td><td class="api-desc">Lease activity — includes expiration heatmap data endpoint</td></tr>
+      <tr><td class="api-endpoint">/api/v1/tenants</td><td class="api-method method-get">GET</td><td class="api-desc">Tenant directory with sector, city, sqft, expiry window, growth signal filters</td></tr>
+      <tr><td class="api-endpoint">/api/v1/owners</td><td class="api-method method-get">GET</td><td class="api-desc">Owner directory with portfolio sqft, AUM, loan maturity, distress flags</td></tr>
+      <tr><td class="api-endpoint">/api/v1/loans</td><td class="api-method method-get">GET</td><td class="api-desc">Loan register — maturity schedule, LTV, status (Current/Watch/NPA)</td></tr>
+      <tr><td class="api-endpoint">/api/v1/distress</td><td class="api-method method-get">GET</td><td class="api-desc">Distress feed filtered by route (SARFAESI/IBC/DRT/SEBI), city, asset</td></tr>
+      <tr><td class="api-endpoint">/api/v1/evidence</td><td class="api-method method-post">POST</td><td class="api-desc">Submit field-level evidence item for any entity</td></tr>
+      <tr><td class="api-endpoint">/api/v1/compare</td><td class="api-method method-post">POST</td><td class="api-desc">Compare tray — resolve N building/property IDs into comparison grid</td></tr>
+      <tr><td class="api-endpoint">/api/v1/reports/:id/export</td><td class="api-method method-get">GET</td><td class="api-desc">Export saved report as PDF (board-ready) or XLSX (model-ready)</td></tr>
+      <tr><td class="api-endpoint">/api/v1/alerts</td><td class="api-method method-post">POST</td><td class="api-desc">Alert subscriptions — triggers: confidence drop, expiry, distress status, new listing</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ROADMAP -->
+<section class="section-dark" id="roadmap">
+  <div class="section-tag" style="color:var(--accent);">Build Plan</div>
+  <h2 class="section-h">Three Phases.<br>40 Weeks.</h2>
+  <p class="section-sub section-sub-light">Credible coverage before complete coverage. Partial data with explicit confidence is better than implied completeness.</p>
+
+  <div class="phases">
+    <div class="phase fade-up">
+      <div class="phase-left">
+        <div class="phase-num mono">PHASE 01</div>
+        <div class="phase-name syne">CoStar-Like Core</div>
+        <div class="phase-timeline mono">Weeks 1–12</div>
+        <div class="phase-badge pb-1">3 Cities at Launch</div>
+      </div>
+      <div class="phase-right">
+        <div class="phase-block">
+          <div class="phase-block-title mono">Key Pages</div>
+          <div class="phase-items">
+            <div class="phase-item">Property Records + Building Profile</div>
+            <div class="phase-item">3-Pane Search Workbench</div>
+            <div class="phase-item">Lease Activity (table + filter)</div>
+            <div class="phase-item">Listing Wizard (all 4 asset types)</div>
+            <div class="phase-item">India Research (8 cities)</div>
+            <div class="phase-item">Distress Feed (basic)</div>
+          </div>
+        </div>
+        <div class="phase-block">
+          <div class="phase-block-title mono">Back-End + Data</div>
+          <div class="phase-items">
+            <div class="phase-item">All canonical schemas live</div>
+            <div class="phase-item">REST API (search, CRUD, evidence)</div>
+            <div class="phase-item">Auth + RBAC (4 roles)</div>
+            <div class="phase-item">Confidence score auto-compute</div>
+            <div class="phase-item">500 Grade A buildings seeded</div>
+            <div class="phase-item">Initial SARFAESI/IBC feed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase fade-up">
+      <div class="phase-left">
+        <div class="phase-num mono">PHASE 02</div>
+        <div class="phase-name syne">Directories + Loans + Alerts</div>
+        <div class="phase-timeline mono">Weeks 13–24</div>
+        <div class="phase-badge pb-2">Full Entity Graph</div>
+      </div>
+      <div class="phase-right">
+        <div class="phase-block">
+          <div class="phase-block-title mono">Key Pages</div>
+          <div class="phase-items">
+            <div class="phase-item">Tenant Directory + Profile</div>
+            <div class="phase-item">Owner Directory + Portfolio</div>
+            <div class="phase-item">Sales Comps (map + list + analytics)</div>
+            <div class="phase-item">Loan Register (CERSAI)</div>
+            <div class="phase-item">Property Record (all tabs)</div>
+            <div class="phase-item">Building Stacking Plan + Comps</div>
+          </div>
+        </div>
+        <div class="phase-block">
+          <div class="phase-block-title mono">Back-End + Data</div>
+          <div class="phase-items">
+            <div class="phase-item">Tenant/Owner/Loan/Sale schemas</div>
+            <div class="phase-item">Entity relationship graph</div>
+            <div class="phase-item">Alert engine (webhook + email)</div>
+            <div class="phase-item">Compare API + Export API</div>
+            <div class="phase-item">MCA + CERSAI + stamp duty data</div>
+            <div class="phase-item">Tenant PAN/CIN cross-reference</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase fade-up">
+      <div class="phase-left">
+        <div class="phase-num mono">PHASE 03</div>
+        <div class="phase-name syne">Analytics + Forecasting</div>
+        <div class="phase-timeline mono">Weeks 25–40</div>
+        <div class="phase-badge pb-3">8 Cities · Enterprise</div>
+      </div>
+      <div class="phase-right">
+        <div class="phase-block">
+          <div class="phase-block-title mono">Key Pages</div>
+          <div class="phase-items">
+            <div class="phase-item">Market Analytics (sub-market drill)</div>
+            <div class="phase-item">Custom Report Builder (6-step)</div>
+            <div class="phase-item">Saved Reports Library</div>
+            <div class="phase-item">Portfolio View (Investor)</div>
+            <div class="phase-item">Benchmark Tool</div>
+            <div class="phase-item">Admin (Sources/QA/Roles/Log)</div>
+          </div>
+        </div>
+        <div class="phase-block">
+          <div class="phase-block-title mono">Back-End + Data</div>
+          <div class="phase-items">
+            <div class="phase-item">OLAP aggregations (city/submarket)</div>
+            <div class="phase-item">Custom report engine (SQL gen)</div>
+            <div class="phase-item">Forecasting (ARIMA baseline)</div>
+            <div class="phase-item">Elasticsearch global search</div>
+            <div class="phase-item">Confidence decay cron (daily)</div>
+            <div class="phase-item">News/gazette pipeline feeds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="cta">
+  <h2 class="cta-h syne">India's CRE<br>Intelligence Layer</h2>
+  <p class="cta-sub">Not a listings aggregator. A canonical intelligence platform — with provenance, confidence, and auditability built in from day one.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn btn-accent btn-lg">Request Early Access</a>
+    <a href="#" class="btn btn-outline-white">Download Full Spec →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo syne">ALGO<span>ESTATE</span></div>
+  <div class="footer-links">
+    <a href="#">Platform</a>
+    <a href="#">Data Model</a>
+    <a href="#">API Docs</a>
+    <a href="#">Roadmap</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy mono">© 2026 nventr / AlgoEstate · Commercial Intelligence Platform · India · CONFIDENTIAL DRAFT v2.0</div>
+</footer>
+
+<script>
+// Intersection observer for fade-up animations
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// Nav scroll effect
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  if(window.scrollY>40){nav.style.borderBottomColor='rgba(255,255,255,0.1)';}
+  else{nav.style.borderBottomColor='rgba(255,255,255,0.06)';}
+});
+</script>
+</body>
+</html>
