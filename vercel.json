@@ -1,0 +1,12 @@
+{
+  "framework": "vite",
+  "installCommand": "cd algo-ui && npm install",
+  "buildCommand": "cd algo-ui && npm run build",
+  "outputDirectory": "algo-ui/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

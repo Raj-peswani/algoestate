@@ -53,3 +53,13 @@ If Vercel shows `404: NOT_FOUND`, check the following in order:
 6. Open the latest **Production** deployment URL (not an old preview URL).
 
 This project also includes `vercel.json` with an SPA rewrite so non-root routes load through `index.html`.
+
+### Monorepo-safe fallback
+
+If Vercel is still using repository root instead of `algo-ui`, this repo now has a root-level `vercel.json` that:
+
+- installs dependencies from `algo-ui`
+- builds from `algo-ui`
+- serves `algo-ui/dist` as output
+
+So deployment should still work even when root directory is not set correctly.
